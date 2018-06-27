@@ -34,7 +34,7 @@ public class EchoClient {
 
             System.out.println("EchoClient connected to server. ");
 
-            future.channel().closeFuture().sync();
+            future.channel().closeFuture().sync();  // If server close Channel, will go into here.
         } catch (Exception e) {
             throw e;
         } finally {

@@ -2,6 +2,7 @@ package ch2_getting_started.your_first_netty_application;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -13,15 +14,18 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf)msg;
-        System.out.println("Server received: " + in.toString(CharsetUtil.UTF_8));
-        ctx.write(in);
+        String data = in.toString(CharsetUtil.UTF_8);
+        System.out.println(Thread.currentThread() + "Server received: " + data.length() + " Bytes , " + data);
 
-        String s = null;
-        s.length();
+        Thread.sleep(3000);
+        //        ctx.writeAndFlush(in);  // If use this, client will receive the msg immediately.
+        ctx.write(in);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        // 如果读完客户端发过来的消息, 就关闭这个Channel, 会引起客户端关闭.
+        System.out.println(Thread.currentThread() + "Server close the channel. ");
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 

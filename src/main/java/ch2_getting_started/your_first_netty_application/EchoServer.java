@@ -26,7 +26,7 @@ public class EchoServer {
                 .childHandler(new EchoServerChannelInitializer());
 
             ChannelFuture future = boot.bind().sync();
-            System.out.println(EchoServer.class.getName() + " started and listen on " + future.channel().localAddress());
+            System.out.println(Thread.currentThread() + EchoServer.class.getName() + " started and listen on " + future.channel().localAddress());
             future.channel().closeFuture().sync();
         } catch (Exception e) {
             throw e;

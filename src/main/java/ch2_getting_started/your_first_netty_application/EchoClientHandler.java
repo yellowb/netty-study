@@ -11,13 +11,15 @@ import io.netty.util.CharsetUtil;
 public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-        System.out.println("Cilent received: " + msg.toString(CharsetUtil.UTF_8));
+        String data = msg.toString(CharsetUtil.UTF_8);
+        System.out.println("Cilent received: " + data.length() + " Bytes , " + data);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Connection is actived.");
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));
+        // Generate a very long data, server will receive multiple times.
+        ctx.writeAndFlush(Unpooled.copiedBuffer(genContent(20000), CharsetUtil.UTF_8));
     }
 
     @Override
@@ -28,6 +30,10 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     }
 
     private String genContent(int length) {
-
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append("0");
+        }
+        return sb.toString();
     }
 }
