@@ -12,12 +12,12 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
         String data = msg.toString(CharsetUtil.UTF_8);
-        System.out.println("Cilent received: " + data.length() + " Bytes , " + data);
+        System.out.println("Client received: " + data.length() + " Bytes , " + data);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("Connection is actived.");
+        System.out.println("Connection is active.");
         // Generate a very long data, server will receive multiple times.
         ctx.writeAndFlush(Unpooled.copiedBuffer(genContent(80000), CharsetUtil.UTF_8));
     }
