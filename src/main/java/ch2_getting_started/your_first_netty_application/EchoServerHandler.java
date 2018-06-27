@@ -11,6 +11,17 @@ import io.netty.util.CharsetUtil;
 
 @Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println(Thread.currentThread() + "Server : Channel active.");
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println(Thread.currentThread() + "Server : Channel inactive.");
+    }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf)msg;
