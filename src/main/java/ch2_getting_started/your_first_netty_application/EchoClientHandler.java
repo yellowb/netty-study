@@ -19,7 +19,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Connection is actived.");
         // Generate a very long data, server will receive multiple times.
-        ctx.writeAndFlush(Unpooled.copiedBuffer(genContent(20000), CharsetUtil.UTF_8));
+        ctx.writeAndFlush(Unpooled.copiedBuffer(genContent(80000), CharsetUtil.UTF_8));
     }
 
     @Override
