@@ -9,17 +9,17 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
-@Sharable
+@Sharable  // 同一个handler对象能够被附加在多个Pipeline中, 但是ctx对象还是handler被附加到每个Pipeline上时会产生一个单独的
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(Thread.currentThread() + "Server : Channel active.");
+        System.out.println(Thread.currentThread() + "|" + ctx + "|Server : Channel active.");
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(Thread.currentThread() + "Server : Channel inactive.");
+        System.out.println(Thread.currentThread() + "|" + ctx + "|Server : Channel inactive.");
     }
 
     @Override

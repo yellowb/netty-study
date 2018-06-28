@@ -11,6 +11,8 @@ import java.net.*;
 
 public class EchoServer {
 
+    private static EchoServerHandler handler = new EchoServerHandler();
+
     private int port;
 
     public EchoServer(int port) {
@@ -41,7 +43,7 @@ public class EchoServer {
 
         @Override
         protected void initChannel(SocketChannel ch) throws Exception {
-            ch.pipeline().addLast(new EchoServerHandler());
+            ch.pipeline().addLast(handler);
         }
     }
 
