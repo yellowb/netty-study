@@ -35,7 +35,7 @@ public class HelloServer {
         } finally {
             bossGroup.shutdownGracefully().sync();
             workerGroup.shutdownGracefully().sync();
-            System.out.println(HelloClient.class.getSimpleName() + ", HelloServer shutdown.");
+            System.out.println(HelloClient.class.getSimpleName() + ", HelloServer shutdown. ");
         }
     }
 
