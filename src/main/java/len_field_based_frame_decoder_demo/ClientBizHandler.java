@@ -20,6 +20,7 @@ public class ClientBizHandler extends SimpleChannelInboundHandler<ByteBuf> {
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
         int result = msg.readInt();
         LOG.info("Get result from server: {}", result);
+        ctx.close();
     }
 
     @Override
