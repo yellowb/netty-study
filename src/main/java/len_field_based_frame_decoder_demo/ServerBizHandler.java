@@ -1,6 +1,5 @@
 package len_field_based_frame_decoder_demo;
 
-import com.sun.deploy.util.ArrayUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
@@ -10,11 +9,16 @@ import io.netty.util.CharsetUtil;
 
 import java.util.regex.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Implement the calculation logic and send the result back to client
  */
 @ChannelHandler.Sharable
 public class ServerBizHandler extends SimpleChannelInboundHandler<ByteBuf> {
+
+    private final static Logger LOG = LoggerFactory.getLogger(ServerBizHandler.class);
 
     private static final Pattern p = Pattern.compile("\\D+");
 
@@ -51,5 +55,11 @@ public class ServerBizHandler extends SimpleChannelInboundHandler<ByteBuf> {
         ByteBuf output = Unpooled.copyInt(result);
         ctx.writeAndFlush(output);
 
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        LOG.info("Client bye-bye");
+        super.channelInactive(ctx);
     }
 }
