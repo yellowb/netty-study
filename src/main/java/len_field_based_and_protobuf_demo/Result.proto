@@ -1,0 +1,9 @@
+syntax = "proto2";
+package len_field_based_and_protobuf_demo;
+
+option java_outer_classname="ResultProto";
+
+message Result{
+    required int32 result = 1;
+}
+
