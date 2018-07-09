@@ -6,7 +6,7 @@ option java_outer_classname="ExpressionProto";
 message Expression{
     required int32 arg1 = 1;
     required int32 arg2 = 2;
-    required string op = 3;
+    required string op = 3;  // "+"/"-"/"*"/"/"
     optional string msg = 4;
 }
 
