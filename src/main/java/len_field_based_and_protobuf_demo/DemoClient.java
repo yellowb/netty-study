@@ -8,6 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
@@ -35,10 +37,11 @@ public class DemoClient {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         // Outbound
-                        pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
+                        pipeline.addLast(new LengthFieldPrepender(4));
                         pipeline.addLast(new ProtobufEncoder());
                         // Inbound
-                        pipeline.addLast(new ProtobufVarint32FrameDecoder());
+                        pipeline.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
+                        pipeline.addLast(new PrintDataSizeHandler());
                         pipeline.addLast(new ProtobufDecoder(ResultProto.Result.getDefaultInstance()));
                         // Tail biz handler
                         pipeline.addLast("bizHandler", new ClientBizHandler());
