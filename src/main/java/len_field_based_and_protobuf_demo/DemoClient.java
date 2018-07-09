@@ -40,6 +40,7 @@ public class DemoClient {
                         // Inbound
                         pipeline.addLast(new ProtobufVarint32FrameDecoder());
                         pipeline.addLast(new ProtobufDecoder(ResultProto.Result.getDefaultInstance()));
+                        // Tail biz handler
                         pipeline.addLast("bizHandler", new ClientBizHandler());
                     }
                 });
