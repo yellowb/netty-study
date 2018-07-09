@@ -1,4 +1,4 @@
-package len_field_based_and_protobuf_demo;
+package len_field_based_and_protobuf_demo.beans;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 

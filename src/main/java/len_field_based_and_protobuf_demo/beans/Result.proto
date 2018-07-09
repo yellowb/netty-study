@@ -1,5 +1,5 @@
 syntax = "proto2";
-package len_field_based_and_protobuf_demo;
+package len_field_based_and_protobuf_demo.beans;
 
 option java_outer_classname="ResultProto";
 
