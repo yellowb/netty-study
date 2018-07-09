@@ -10,6 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.compression.SnappyFrameDecoder;
+import io.netty.handler.codec.compression.SnappyFrameEncoder;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
@@ -31,17 +33,18 @@ public class DemoClient {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup)
                 .channel(NioSocketChannel.class)
-                .handler(new LoggingHandler(LogLevel.INFO))
+                .handler(new LoggingHandler(LogLevel.DEBUG))
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         // Outbound
+                        pipeline.addLast(new SnappyFrameEncoder());
                         pipeline.addLast(new LengthFieldPrepender(4));
                         pipeline.addLast(new ProtobufEncoder());
                         // Inbound
+                        pipeline.addLast(new SnappyFrameDecoder());
                         pipeline.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
-                        pipeline.addLast(new PrintDataSizeHandler());
                         pipeline.addLast(new ProtobufDecoder(ResultProto.Result.getDefaultInstance()));
                         // Tail biz handler
                         pipeline.addLast("bizHandler", new ClientBizHandler());
@@ -58,6 +61,7 @@ public class DemoClient {
                 ExpressionProto.Expression exp = ExpressionUtil.fromString(strExp);
                 channelFuture.channel().writeAndFlush(exp);
             }
+
 
 //            channelFuture.channel().closeFuture().sync();
         }

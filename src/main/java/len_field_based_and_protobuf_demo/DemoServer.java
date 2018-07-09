@@ -10,6 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.compression.SnappyFrameDecoder;
+import io.netty.handler.codec.compression.SnappyFrameEncoder;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
@@ -27,17 +29,18 @@ public class DemoServer {
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(parentGroup, childGroup).channel(NioServerSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO))
+            serverBootstrap.group(parentGroup, childGroup).channel(NioServerSocketChannel.class).handler(new LoggingHandler(LogLevel.DEBUG))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         // Outbound
+                        pipeline.addLast(new SnappyFrameEncoder());
                         pipeline.addLast(new LengthFieldPrepender(4));
                         pipeline.addLast(new ProtobufEncoder());
                         // Inbound
+                        pipeline.addLast(new SnappyFrameDecoder());
                         pipeline.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
-                        pipeline.addLast(new PrintDataSizeHandler());
                         pipeline.addLast(new ProtobufDecoder(ExpressionProto.Expression.getDefaultInstance()));
                         // Tail biz handler
                         pipeline.addLast("bizHandler", new ServerBizHandler());

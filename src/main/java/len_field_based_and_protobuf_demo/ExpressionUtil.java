@@ -10,6 +10,7 @@ public class ExpressionUtil {
 
     /**
      * Parse a string expression to ExpressionProto.Expression object
+     *
      * @param strExp
      * @return
      */
@@ -23,7 +24,13 @@ public class ExpressionUtil {
         int arg1 = Integer.parseInt(args[0]);
         int arg2 = Integer.parseInt(args[1]);
 
-        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(arg1).setArg2(arg2).setOp(op).build();
+        // Fake huge string
+        StringBuilder sb = new StringBuilder(1000 * 1000);
+        for (int i = 0; i < 1000 * 1000 / 10; i++) {
+            sb.append("1234567890");
+        }
+
+        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(arg1).setArg2(arg2).setOp(op).setMsg(sb.toString()).build();
 
         return exp;
     }

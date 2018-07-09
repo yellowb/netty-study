@@ -26,6 +26,20 @@ public final class ResultProto {
      * <code>required int32 result = 1;</code>
      */
     int getResult();
+
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    boolean hasMsg();
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    java.lang.String getMsg();
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgBytes();
   }
   /**
    * Protobuf type {@code len_field_based_and_protobuf_demo.beans.Result}
@@ -41,6 +55,7 @@ public final class ResultProto {
     }
     private Result() {
       result_ = 0;
+      msg_ = "";
     }
 
     @java.lang.Override
@@ -70,6 +85,12 @@ public final class ResultProto {
             case 8: {
               bitField0_ |= 0x00000001;
               result_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              msg_ = bs;
               break;
             }
             default: {
@@ -120,6 +141,48 @@ public final class ResultProto {
       return result_;
     }
 
+    public static final int MSG_FIELD_NUMBER = 2;
+    private volatile java.lang.Object msg_;
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    public java.lang.String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          msg_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -141,6 +204,9 @@ public final class ResultProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeInt32(1, result_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -153,6 +219,9 @@ public final class ResultProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, result_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -175,6 +244,11 @@ public final class ResultProto {
         result = result && (getResult()
             == other.getResult());
       }
+      result = result && (hasMsg() == other.hasMsg());
+      if (hasMsg()) {
+        result = result && getMsg()
+            .equals(other.getMsg());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -189,6 +263,10 @@ public final class ResultProto {
       if (hasResult()) {
         hash = (37 * hash) + RESULT_FIELD_NUMBER;
         hash = (53 * hash) + getResult();
+      }
+      if (hasMsg()) {
+        hash = (37 * hash) + MSG_FIELD_NUMBER;
+        hash = (53 * hash) + getMsg().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -325,6 +403,8 @@ public final class ResultProto {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        msg_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -357,6 +437,10 @@ public final class ResultProto {
           to_bitField0_ |= 0x00000001;
         }
         result.result_ = result_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.msg_ = msg_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -408,6 +492,11 @@ public final class ResultProto {
         if (other == len_field_based_and_protobuf_demo.beans.ResultProto.Result.getDefaultInstance()) return this;
         if (other.hasResult()) {
           setResult(other.getResult());
+        }
+        if (other.hasMsg()) {
+          bitField0_ |= 0x00000002;
+          msg_ = other.msg_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -470,6 +559,82 @@ public final class ResultProto {
       public Builder clearResult() {
         bitField0_ = (bitField0_ & ~0x00000001);
         result_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object msg_ = "";
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public java.lang.String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            msg_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMsgBytes() {
+        java.lang.Object ref = msg_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msg_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder setMsg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder clearMsg() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder setMsgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        msg_ = value;
         onChanged();
         return this;
       }
@@ -541,8 +706,8 @@ public final class ResultProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\014Result.proto\022\'len_field_based_and_prot" +
-      "obuf_demo.beans\"\030\n\006Result\022\016\n\006result\030\001 \002(" +
-      "\005B\rB\013ResultProto"
+      "obuf_demo.beans\"%\n\006Result\022\016\n\006result\030\001 \002(" +
+      "\005\022\013\n\003msg\030\002 \001(\tB\rB\013ResultProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -561,7 +726,7 @@ public final class ResultProto {
     internal_static_len_field_based_and_protobuf_demo_beans_Result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_len_field_based_and_protobuf_demo_beans_Result_descriptor,
-        new java.lang.String[] { "Result", });
+        new java.lang.String[] { "Result", "Msg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

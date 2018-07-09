@@ -49,6 +49,20 @@ public final class ExpressionProto {
      */
     com.google.protobuf.ByteString
         getOpBytes();
+
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    boolean hasMsg();
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    java.lang.String getMsg();
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgBytes();
   }
   /**
    * Protobuf type {@code len_field_based_and_protobuf_demo.beans.Expression}
@@ -66,6 +80,7 @@ public final class ExpressionProto {
       arg1_ = 0;
       arg2_ = 0;
       op_ = "";
+      msg_ = "";
     }
 
     @java.lang.Override
@@ -106,6 +121,12 @@ public final class ExpressionProto {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
               op_ = bs;
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000008;
+              msg_ = bs;
               break;
             }
             default: {
@@ -213,6 +234,48 @@ public final class ExpressionProto {
       }
     }
 
+    public static final int MSG_FIELD_NUMBER = 4;
+    private volatile java.lang.Object msg_;
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    public java.lang.String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          msg_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string msg = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -248,6 +311,9 @@ public final class ExpressionProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, op_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, msg_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -267,6 +333,9 @@ public final class ExpressionProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, op_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, msg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -299,6 +368,11 @@ public final class ExpressionProto {
         result = result && getOp()
             .equals(other.getOp());
       }
+      result = result && (hasMsg() == other.hasMsg());
+      if (hasMsg()) {
+        result = result && getMsg()
+            .equals(other.getMsg());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -321,6 +395,10 @@ public final class ExpressionProto {
       if (hasOp()) {
         hash = (37 * hash) + OP_FIELD_NUMBER;
         hash = (53 * hash) + getOp().hashCode();
+      }
+      if (hasMsg()) {
+        hash = (37 * hash) + MSG_FIELD_NUMBER;
+        hash = (53 * hash) + getMsg().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -461,6 +539,8 @@ public final class ExpressionProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         op_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        msg_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -501,6 +581,10 @@ public final class ExpressionProto {
           to_bitField0_ |= 0x00000004;
         }
         result.op_ = op_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.msg_ = msg_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -559,6 +643,11 @@ public final class ExpressionProto {
         if (other.hasOp()) {
           bitField0_ |= 0x00000004;
           op_ = other.op_;
+          onChanged();
+        }
+        if (other.hasMsg()) {
+          bitField0_ |= 0x00000008;
+          msg_ = other.msg_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -739,6 +828,82 @@ public final class ExpressionProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object msg_ = "";
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public java.lang.String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            msg_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMsgBytes() {
+        java.lang.Object ref = msg_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msg_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public Builder setMsg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public Builder clearMsg() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 4;</code>
+       */
+      public Builder setMsgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -807,9 +972,9 @@ public final class ExpressionProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\020Expression.proto\022\'len_field_based_and_" +
-      "protobuf_demo.beans\"4\n\nExpression\022\014\n\004arg" +
-      "1\030\001 \002(\005\022\014\n\004arg2\030\002 \002(\005\022\n\n\002op\030\003 \002(\tB\021B\017Exp" +
-      "ressionProto"
+      "protobuf_demo.beans\"A\n\nExpression\022\014\n\004arg" +
+      "1\030\001 \002(\005\022\014\n\004arg2\030\002 \002(\005\022\n\n\002op\030\003 \002(\t\022\013\n\003msg" +
+      "\030\004 \001(\tB\021B\017ExpressionProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -828,7 +993,7 @@ public final class ExpressionProto {
     internal_static_len_field_based_and_protobuf_demo_beans_Expression_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_len_field_based_and_protobuf_demo_beans_Expression_descriptor,
-        new java.lang.String[] { "Arg1", "Arg2", "Op", });
+        new java.lang.String[] { "Arg1", "Arg2", "Op", "Msg", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
