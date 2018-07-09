@@ -25,8 +25,14 @@ public class ServerBizHandler extends SimpleChannelInboundHandler<ExpressionProt
     private static final Pattern p = Pattern.compile("\\D+");
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        LOG.info("Client {} connected.", ctx.channel().remoteAddress());
+        super.channelActive(ctx);
+    }
+
+    @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        LOG.info("Client bye-bye");
+        LOG.info("Client {} said bye-bye.", ctx.channel().remoteAddress());
         super.channelInactive(ctx);
     }
 

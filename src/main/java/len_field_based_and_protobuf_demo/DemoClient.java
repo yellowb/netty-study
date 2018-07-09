@@ -14,7 +14,10 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import len_field_based_and_protobuf_demo.beans.ExpressionProto;
 import len_field_based_and_protobuf_demo.beans.ResultProto;
+
+import java.util.*;
 
 public class DemoClient {
 
@@ -42,7 +45,17 @@ public class DemoClient {
                 });
 
             ChannelFuture channelFuture = bootstrap.connect("localhost", 10086).sync();
-            channelFuture.channel().closeFuture().sync();
+
+            while(1 == 1) {
+                System.out.println("Enter your expression: ");
+                Scanner scanner = new Scanner(System.in);
+                String strExp = scanner.nextLine();
+
+                ExpressionProto.Expression exp = ExpressionUtil.fromString(strExp);
+                channelFuture.channel().writeAndFlush(exp);
+            }
+
+//            channelFuture.channel().closeFuture().sync();
         }
         finally {
             eventLoopGroup.shutdownGracefully();

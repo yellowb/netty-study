@@ -25,7 +25,7 @@ public class DemoServer {
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(parentGroup, childGroup).channel(NioServerSocketChannel.class).handler(new LoggingHandler(LogLevel.DEBUG))
+            serverBootstrap.group(parentGroup, childGroup).channel(NioServerSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {

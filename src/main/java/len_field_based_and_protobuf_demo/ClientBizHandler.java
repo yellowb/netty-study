@@ -21,9 +21,11 @@ public class ClientBizHandler extends SimpleChannelInboundHandler<ResultProto.Re
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
-        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(1).setArg2(2).setOp("+").build();
+//        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(1).setArg2(2).setOp("+").build();
+//
+//        ctx.writeAndFlush(exp);
 
-        ctx.writeAndFlush(exp);
+        LOG.info("Connected with server {}", ctx.channel().remoteAddress());
     }
 
     @Override
@@ -32,6 +34,8 @@ public class ClientBizHandler extends SimpleChannelInboundHandler<ResultProto.Re
 
         LOG.info("The result from server is {}", ret);
 
-        ctx.close();
+//        ctx.close();
     }
+
+
 }
