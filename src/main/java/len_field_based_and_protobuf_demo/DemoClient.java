@@ -66,7 +66,7 @@ public class DemoClient {
             for(;;) {
                 ExpressionProto.Expression exp = ExpressionUtil.fromString("1+2");
                 channelFuture.channel().writeAndFlush(exp);
-                Thread.sleep(100);
+                Thread.sleep(1);
             }
 
 
