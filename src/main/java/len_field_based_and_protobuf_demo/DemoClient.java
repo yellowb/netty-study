@@ -3,6 +3,7 @@ package len_field_based_and_protobuf_demo;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -49,17 +50,23 @@ public class DemoClient {
                         // Tail biz handler
                         pipeline.addLast("bizHandler", new ClientBizHandler());
                     }
-                });
+                }).option(ChannelOption.TCP_NODELAY, true);
 
             ChannelFuture channelFuture = bootstrap.connect("localhost", 10086).sync();
 
-            while(1 == 1) {
-                System.out.println("Enter your expression: ");
-                Scanner scanner = new Scanner(System.in);
-                String strExp = scanner.nextLine();
+//            while(1 == 1) {
+//                System.out.println("Enter your expression: ");
+//                Scanner scanner = new Scanner(System.in);
+//                String strExp = scanner.nextLine();
+//
+//                ExpressionProto.Expression exp = ExpressionUtil.fromString(strExp);
+//                channelFuture.channel().writeAndFlush(exp);
+//            }
 
-                ExpressionProto.Expression exp = ExpressionUtil.fromString(strExp);
+            for(;;) {
+                ExpressionProto.Expression exp = ExpressionUtil.fromString("1+2");
                 channelFuture.channel().writeAndFlush(exp);
+                Thread.sleep(100);
             }
 
 

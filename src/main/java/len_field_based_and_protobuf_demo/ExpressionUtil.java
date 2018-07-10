@@ -30,7 +30,9 @@ public class ExpressionUtil {
             sb.append("1234567890");
         }
 
-        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(arg1).setArg2(arg2).setOp(op).setMsg(sb.toString()).build();
+        ExpressionProto.Expression exp = ExpressionProto.Expression.newBuilder().setArg1(arg1).setArg2(arg2).setOp(op)
+            .setMsg(sb.toString())
+            .build();
 
         return exp;
     }

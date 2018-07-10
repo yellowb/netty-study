@@ -3,6 +3,7 @@ package len_field_based_and_protobuf_demo;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -45,7 +46,7 @@ public class DemoServer {
                         // Tail biz handler
                         pipeline.addLast("bizHandler", new ServerBizHandler());
                     }
-                });
+                }).childOption(ChannelOption.TCP_NODELAY, true);
 
             ChannelFuture channelFuture = serverBootstrap.bind(10086).sync();
             channelFuture.channel().closeFuture().sync();
