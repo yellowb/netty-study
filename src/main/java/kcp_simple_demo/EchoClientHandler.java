@@ -33,13 +33,20 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         UkcpChannel kcpCh = (UkcpChannel) ctx.channel();
-//        kcpCh.conv(EchoClient.CONV); // set conv
+        kcpCh.conv(EchoClient.CONV); // set conv
 
-//        for(int i = 0; i < 5; i++) {
-//            ByteBuf slice = firstMessage.retainedSlice();
-//            LOG.info("Client send: {}", slice.toString(CharsetUtil.UTF_8));
-//            ctx.writeAndFlush(slice);
-//        }
+        for(int i = 0; i < 15; i++) {
+            ByteBuf slice = firstMessage.retainedSlice();
+            LOG.info("Client send: {}", slice.toString(CharsetUtil.UTF_8));
+            ctx.writeAndFlush(slice);
+        }
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("干干干");
+            e.printStackTrace();
+        }
 
         LOG.info("Client send: {}", firstMessage.toString(CharsetUtil.UTF_8));
         ctx.writeAndFlush(firstMessage);

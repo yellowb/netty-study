@@ -17,14 +17,28 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        UkcpChannel kcpCh = (UkcpChannel) ctx.channel();
-//        kcpCh.conv(EchoServer.CONV);
+        UkcpChannel kcpCh = (UkcpChannel)ctx.channel();
+        kcpCh.conv(EchoServer.CONV);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf buf = (ByteBuf)msg;
-        System.out.println("Server recv: " + buf.toString(CharsetUtil.UTF_8));
+
+        ctx.channel().eventLoop().execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread() + "|Server do something: " + buf.toString(CharsetUtil.UTF_8));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.out.println("干干干");
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        System.out.println(Thread.currentThread() + "|Server recv: " + buf.toString(CharsetUtil.UTF_8));
         ctx.write(msg);
     }
 

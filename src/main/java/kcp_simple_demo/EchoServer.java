@@ -41,7 +41,7 @@ public final class EchoServer {
             ChannelOptionHelper.nodelay(b, true, 40, 2, true)
                 .childOption(UkcpChannelOption.UKCP_MTU, 512)
 //                .childOption(UkcpChannelOption.UKCP_AUTO_SET_CONV, true)
-                .childOption(UkcpChannelOption.UKCP_STREAM, true)
+//                .childOption(UkcpChannelOption.UKCP_STREAM, true)
                 .childOption(UkcpChannelOption.UKCP_RCV_WND, 128)
                 .childOption(UkcpChannelOption.UKCP_SND_WND, 128);
 
