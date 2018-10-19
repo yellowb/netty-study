@@ -1,6 +1,9 @@
 package lightning.simple;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -8,6 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 
+import java.nio.charset.*;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -32,6 +36,7 @@ public class SimpleClient {
             .handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) {
+                    ch.pipeline().addLast(new FirstClientHandler());
                 }
             });
 
@@ -59,5 +64,27 @@ public class SimpleClient {
                 }, delay, TimeUnit.SECONDS);
             }
         });
+    }
+
+    static class FirstClientHandler extends ChannelInboundHandlerAdapter {
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("Channel 已激活");
+
+            ByteBuf buffer = ctx.alloc().buffer();
+            buffer.writeBytes("How are you?".getBytes(Charset.forName("utf-8")));
+
+            ctx.channel().writeAndFlush(buffer);
+
+            System.out.println(new Date() + " - 向服务器发送消息:" + "How are you?");
+
+        }
+
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            String inMsg = ((ByteBuf)msg).toString(Charset.forName("utf-8"));
+
+            System.out.println(new Date() + " - 接收到服务器消息:" + inMsg);
+        }
     }
 }

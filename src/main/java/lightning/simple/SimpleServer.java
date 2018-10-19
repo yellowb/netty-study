@@ -1,6 +1,9 @@
 package lightning.simple;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -8,6 +11,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+
+import java.nio.charset.*;
+import java.util.*;
 
 public class SimpleServer {
     public static void main(String[] args) {
@@ -20,6 +26,7 @@ public class SimpleServer {
             .channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<NioSocketChannel>() {
                 protected void initChannel(NioSocketChannel ch) {
+                    ch.pipeline().addLast(new FirstServerHandler());
                 }
             })
             .childOption(ChannelOption.TCP_NODELAY, true)
@@ -34,5 +41,24 @@ public class SimpleServer {
                 }
             }
         });
+    }
+
+    static class FirstServerHandler extends ChannelInboundHandlerAdapter {
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
+            String inMsg = ((ByteBuf)msg).toString(Charset.forName("utf-8"));
+
+            System.out.println(new Date() + " - 接收到客户端消息:" + inMsg);
+
+            if ("How are you?".equals(inMsg)) {
+                String outMsg = "Fine. Thank you and you?";
+                ByteBuf outMsgBuffer = ctx.alloc().buffer();
+                outMsgBuffer.writeBytes(outMsg.getBytes(Charset.forName("utf-8")));
+                ctx.channel().writeAndFlush(outMsgBuffer);
+                System.out.println(new Date() + " - 向客户端发送消息:" + outMsg);
+            }
+
+        }
     }
 }
