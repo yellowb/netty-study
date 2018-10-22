@@ -54,6 +54,10 @@ public class SimpleServer {
             if ("How are you?".equals(inMsg)) {
                 String outMsg = "Fine. Thank you and you?";
                 ByteBuf outMsgBuffer = ctx.alloc().buffer();
+
+                System.out.println(outMsgBuffer.capacity());
+                System.out.println(outMsgBuffer.maxCapacity());
+
                 outMsgBuffer.writeBytes(outMsg.getBytes(Charset.forName("utf-8")));
                 ctx.channel().writeAndFlush(outMsgBuffer);
                 System.out.println(new Date() + " - 向客户端发送消息:" + outMsg);
