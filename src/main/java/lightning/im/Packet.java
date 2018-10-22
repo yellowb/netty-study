@@ -10,6 +10,10 @@ public abstract class Packet {
      */
     private byte version = 1;
 
+    public byte getVersion() {
+        return version;
+    }
+
     /**
      * 返回网络包包含的指令
      * @return
