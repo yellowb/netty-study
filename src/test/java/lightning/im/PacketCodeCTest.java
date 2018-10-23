@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
 public class PacketCodeCTest {
 
     @Test
@@ -18,11 +17,11 @@ public class PacketCodeCTest {
         PacketCodeC codec = new PacketCodeC();
         ByteBuf byteBuf = codec.encode(loginReq);
 
-        LoginRequestPacket anotherLoginReq = (LoginRequestPacket) codec.decode(byteBuf);
+        LoginRequestPacket anotherLoginReq = (LoginRequestPacket)codec.decode(byteBuf);
 
         assertTrue(loginReq.getUserId() == anotherLoginReq.getUserId() &&
-                    loginReq.getUsername().equals(anotherLoginReq.getUsername()) &&
-                    loginReq.getPassword().equals(anotherLoginReq.getPassword()));
+            loginReq.getUsername().equals(anotherLoginReq.getUsername()) &&
+            loginReq.getPassword().equals(anotherLoginReq.getPassword()));
     }
 
 }

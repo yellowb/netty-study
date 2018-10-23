@@ -20,7 +20,16 @@ public class PacketCodeC {
     }
 
     public ByteBuf encode(Packet packet) {
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        return this.encode(null, packet);
+    }
+
+    public ByteBuf encode(ByteBufAllocator alloc, Packet packet) {
+        ByteBuf byteBuf = null;
+        if (alloc != null) {
+            byteBuf = alloc.ioBuffer();
+        } else {
+            byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        }
 
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
@@ -58,7 +67,7 @@ public class PacketCodeC {
         Class<? extends Packet> requestType = getRequestType(command);
         Serializer serializer = getSerializer(serializeAlgorithm);
 
-        if(requestType != null && serializer != null) {
+        if (requestType != null && serializer != null) {
             return serializer.deserialize(requestType, bytes);
         }
 
