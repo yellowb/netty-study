@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.*;
+
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final PacketCodeC CODEC = new PacketCodeC();
@@ -20,8 +22,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             LoginRequestPacket loginRequestPacket = (LoginRequestPacket)packet;
             if (validUser(loginRequestPacket)) {
                 // Login passed
+                System.out.println(new Date() + ": 登录验证成功! - " + loginRequestPacket.getUsername());
             } else {
                 // Login denied
+                System.out.println(new Date() + ": 登录验证失败! - " + loginRequestPacket.getUsername());
             }
         }
 
@@ -29,6 +33,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private boolean validUser(LoginRequestPacket loginRequestPacket) {
         return (loginRequestPacket.getUsername().equals("yellow") && loginRequestPacket.getPassword().equals("12345")) || (
-            loginRequestPacket.getUsername().equals("black") && loginRequestPacket.getPassword().equals("54321"))；
+            loginRequestPacket.getUsername().equals("black") && loginRequestPacket.getPassword().equals("54321"));
     }
 }
