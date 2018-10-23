@@ -23,4 +23,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
         ctx.channel().writeAndFlush(byteBuf);
     }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        //TODO handle response
+    }
 }

@@ -23,9 +23,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             if (validUser(loginRequestPacket)) {
                 // Login passed
                 System.out.println(new Date() + ": 登录验证成功! - " + loginRequestPacket.getUsername());
+                //TODO Add response
             } else {
                 // Login denied
                 System.out.println(new Date() + ": 登录验证失败! - " + loginRequestPacket.getUsername());
+                //TODO Add response
             }
         }
 
