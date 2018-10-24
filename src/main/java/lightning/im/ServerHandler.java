@@ -10,6 +10,13 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final PacketCodeC CODEC = new PacketCodeC();
 
+    private static final Map<String, String> VALID_USERS = new HashMap<>();
+
+    static {
+        VALID_USERS.put("yellow", "12345");
+        VALID_USERS.put("black", "54321");
+    }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
@@ -34,7 +41,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     private boolean validUser(LoginRequestPacket loginRequestPacket) {
-        return (loginRequestPacket.getUsername().equals("yellow") && loginRequestPacket.getPassword().equals("12345")) || (
-            loginRequestPacket.getUsername().equals("black") && loginRequestPacket.getPassword().equals("54321"));
+        String pwd = VALID_USERS.get(loginRequestPacket.getUsername());
+        return loginRequestPacket.getPassword().equals(pwd);
     }
 }
