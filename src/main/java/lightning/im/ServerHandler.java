@@ -27,15 +27,20 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         if (packet instanceof LoginRequestPacket) {
             // Login
             LoginRequestPacket loginRequestPacket = (LoginRequestPacket)packet;
+            LoginResponsePacket loginResponsePacket = null;
+
             if (validUser(loginRequestPacket)) {
                 // Login passed
                 System.out.println(new Date() + ": 登录验证成功! - " + loginRequestPacket.getUsername());
-                //TODO Add response
+                loginResponsePacket = this.buildLoginResponse(true, loginRequestPacket.getUsername(), null);
             } else {
                 // Login denied
                 System.out.println(new Date() + ": 登录验证失败! - " + loginRequestPacket.getUsername());
-                //TODO Add response
+                loginResponsePacket = this.buildLoginResponse(false, loginRequestPacket.getUsername(), "Username/PWD error");
             }
+
+            ByteBuf respByteBuf = CODEC.encode(loginResponsePacket);
+            ctx.channel().writeAndFlush(respByteBuf);
         }
 
     }
@@ -43,5 +48,13 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     private boolean validUser(LoginRequestPacket loginRequestPacket) {
         String pwd = VALID_USERS.get(loginRequestPacket.getUsername());
         return loginRequestPacket.getPassword().equals(pwd);
+    }
+
+    private LoginResponsePacket buildLoginResponse(boolean passed, String username, String errMsg) {
+        LoginResponsePacket packet = new LoginResponsePacket();
+        packet.setLoginResponse(passed ? LoginResponsePacket.LOGIN_PASSED : LoginResponsePacket.LOGIN_DENIED);
+        packet.setUsername(username);
+        packet.setErrMsg(errMsg);
+        return packet;
     }
 }

@@ -11,6 +11,8 @@ public class LoginResponsePacket extends Packet {
 
     private byte loginResponse;
 
+    private String username;
+
     private String errMsg;
 
     public byte getLoginResponse() {
@@ -23,6 +25,14 @@ public class LoginResponsePacket extends Packet {
 
     public String getErrMsg() {
         return errMsg;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setErrMsg(String errMsg) {
