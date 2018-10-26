@@ -41,6 +41,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
                 LoginUtil.markAsLogout(ctx.channel());
                 System.out.println(new Date() + ": 客户端登录失败[" + loginResponsePacket.getErrMsg() + "]");
             }
+        } else if (serverRespPacket instanceof MessageResponsePacket) {
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) serverRespPacket;
+            System.out.println(new Date() + ": 服务器回应: " + messageResponsePacket.getMessage());
         }
 
     }

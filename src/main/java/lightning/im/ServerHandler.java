@@ -42,6 +42,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
             ByteBuf respByteBuf = CODEC.encode(loginResponsePacket);
             ctx.channel().writeAndFlush(respByteBuf);
+        } else if (packet instanceof MessageRequestPacket) {
+            // Msg from client
+            MessageRequestPacket messageRequestPacket = (MessageRequestPacket)packet;
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
+            System.out.println(new Date() + ": 客户端发来消息: " + messageRequestPacket.getMessage());
+            String resp = "ECHO: " + messageRequestPacket.getMessage();
+            messageResponsePacket.setMessage(resp);
+            ByteBuf respByteBuf = CODEC.encode(messageResponsePacket);
+            ctx.channel().writeAndFlush(respByteBuf);
         }
 
     }

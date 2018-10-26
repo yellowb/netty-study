@@ -53,6 +53,7 @@ public class Client {
 
                 // 启动新线程接收命令行输入
                 final Channel channel = ((ChannelFuture)future).channel();
+                startConsoleThread(channel);
 
             } else if (retry == 0) {
                 System.err.println(new Date() + ": 重试次数已用完，放弃连接！");

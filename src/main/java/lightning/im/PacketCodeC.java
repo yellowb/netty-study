@@ -16,6 +16,8 @@ public class PacketCodeC {
     static {
         CLASS_MAP.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         CLASS_MAP.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        CLASS_MAP.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        CLASS_MAP.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         SERIALIZER_MAP.put(SerializerAlgorithm.JSON, new JSONSerializer());
     }
