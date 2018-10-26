@@ -1,6 +1,9 @@
 package lightning.im;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,6 +17,8 @@ import java.util.concurrent.*;
 public class Client {
 
     private static final int MAX_RETRY = 5;
+
+    private static final PacketCodeC CODEC = new PacketCodeC();
 
     public static void main(String[] args) {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -45,6 +50,10 @@ public class Client {
         bootstrap.connect(host, port).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println(new Date() + ": 连接成功!");
+
+                // 启动新线程接收命令行输入
+                final Channel channel = ((ChannelFuture)future).channel();
+
             } else if (retry == 0) {
                 System.err.println(new Date() + ": 重试次数已用完，放弃连接！");
             } else {
@@ -61,6 +70,21 @@ public class Client {
                 }, delay, TimeUnit.SECONDS);
             }
         });
+    }
+
+    private static void startConsoleThread(final Channel channel) {
+        new Thread(() -> {
+            while (!Thread.interrupted()) {
+                System.out.println("输入信息: ");
+                Scanner sc = new Scanner(System.in);
+                String line = sc.nextLine();
+
+                MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
+                messageRequestPacket.setMessage(line);
+                ByteBuf byteBuf = CODEC.encode(messageRequestPacket);
+                channel.writeAndFlush(byteBuf);
+            }
+        }).start();
     }
 
 }
