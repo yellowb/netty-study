@@ -24,6 +24,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         Packet packet = CODEC.decode(byteBuf);
 
+        // Process different packet
         if (packet instanceof LoginRequestPacket) {
             // Login
             LoginRequestPacket loginRequestPacket = (LoginRequestPacket)packet;

@@ -27,5 +27,21 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         //TODO handle response
+
+        ByteBuf inByteBuf = (ByteBuf)msg;
+
+        Packet serverRespPacket = CODEC.decode(inByteBuf);
+
+        // Process different packet
+        if (serverRespPacket instanceof LoginResponsePacket) {
+            LoginResponsePacket loginResponsePacket = (LoginResponsePacket) serverRespPacket;
+            if (loginResponsePacket.getLoginResponse() == LoginResponsePacket.LOGIN_PASSED) {
+                System.out.println(new Date() + ": 客户端登录成功");
+            }
+            else {
+                System.out.println(new Date() + ": 客户端登录失败[" + loginResponsePacket.getErrMsg() + "]");
+            }
+        }
+
     }
 }
