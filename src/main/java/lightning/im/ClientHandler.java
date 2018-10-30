@@ -35,7 +35,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             LoginResponsePacket loginResponsePacket = (LoginResponsePacket) serverRespPacket;
             if (loginResponsePacket.getLoginResponse() == LoginResponsePacket.LOGIN_PASSED) {
                 LoginUtil.markAsLogin(ctx.channel());
-                System.out.println(new Date() + ": 客户端登录成功");
+                System.out.println(new Date() + ": 客户端登录成功 ");
             }
             else {
                 LoginUtil.markAsLogout(ctx.channel());
