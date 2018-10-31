@@ -1,5 +1,6 @@
 package lightning.im;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -23,7 +24,7 @@ public class PacketCodeC {
     }
 
     public ByteBuf encode(Packet packet) {
-        return this.encode(null, packet);
+        return this.encode(ByteBufAllocator.DEFAULT, packet);
     }
 
     public ByteBuf encode(ByteBufAllocator alloc, Packet packet) {
@@ -34,6 +35,12 @@ public class PacketCodeC {
             byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
         }
 
+        this.encode(byteBuf, packet);
+
+        return byteBuf;
+    }
+
+    public void encode(ByteBuf byteBuf, Packet packet) {
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
         // encoding
@@ -43,8 +50,6 @@ public class PacketCodeC {
         byteBuf.writeByte(packet.getCommand());
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
-
-        return byteBuf;
     }
 
     public Packet decode(ByteBuf byteBuf) {
