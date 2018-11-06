@@ -14,6 +14,12 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
         System.out.println(new Date() + ": 客户端发来消息: " + messageRequestPacket.getMessage());
         String resp = "ECHO: " + messageRequestPacket.getMessage();
         messageResponsePacket.setMessage(resp);
-        ctx.channel().writeAndFlush(messageResponsePacket);
+        ctx.channel().write(messageResponsePacket);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.channel().flush();
+        super.channelReadComplete(ctx);
     }
 }

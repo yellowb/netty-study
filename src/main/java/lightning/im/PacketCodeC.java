@@ -1,6 +1,5 @@
 package lightning.im;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 

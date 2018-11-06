@@ -32,7 +32,13 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             loginResponsePacket.setLoginResponse(LoginResponsePacket.LOGIN_DENIED);
             loginResponsePacket.setErrMsg("Username/PWD error");
         }
-        ctx.channel().writeAndFlush(loginResponsePacket);
+        ctx.channel().write(loginResponsePacket);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.channel().flush();
+        super.channelReadComplete(ctx);
     }
 
     private boolean validUser(LoginRequestPacket loginRequestPacket) {
