@@ -6,6 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -23,6 +24,7 @@ public class Server {
             .channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<NioSocketChannel>() {
                 protected void initChannel(NioSocketChannel ch) {
+                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                     ch.pipeline().addLast(new PacketCodec());
                     ch.pipeline().addLast(new LoginRequestHandler());
                     ch.pipeline().addLast(new MessageRequestHandler());

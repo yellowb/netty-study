@@ -9,6 +9,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.AttributeKey;
 import lightning.im.MessageRequestPacket;
 import lightning.im.PacketCodeC;
@@ -40,6 +41,7 @@ public class Client {
             .handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) {
+                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                     ch.pipeline().addLast(new PacketCodec());
                     ch.pipeline().addLast(new LoginResponseHandler());
                     ch.pipeline().addLast(new MessageResponseHandler());
@@ -57,8 +59,8 @@ public class Client {
 
                 // 启动新线程接收命令行输入
                 final Channel channel = ((ChannelFuture)future).channel();
-                startConsoleThread(channel);
-
+                //                startConsoleThread(channel);
+                startFastThread(channel);
             } else if (retry == 0) {
                 System.err.println(new Date() + ": 重试次数已用完，放弃连接！");
             } else {
@@ -86,8 +88,20 @@ public class Client {
 
                 MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
                 messageRequestPacket.setMessage(line);
-//                ByteBuf byteBuf = CODEC.encode(messageRequestPacket);
-//                channel.writeAndFlush(byteBuf);
+                //                ByteBuf byteBuf = CODEC.encode(messageRequestPacket);
+                //                channel.writeAndFlush(byteBuf);
+                channel.writeAndFlush(messageRequestPacket);
+            }
+        }).start();
+    }
+
+    private static void startFastThread(final Channel channel) {
+        new Thread(() -> {
+            String line = "Hello, my name is Lily, how are you?";
+
+            MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
+            messageRequestPacket.setMessage(line);
+            for (int i = 0; i < 500; i++) {
                 channel.writeAndFlush(messageRequestPacket);
             }
         }).start();
