@@ -113,7 +113,7 @@ public class Client {
             }
 
             channel.close();
-            System.err.println(new Date() + ": 断开连接");
+            System.out.println(new Date() + ": 断开连接");
 
         }).start();
     }
