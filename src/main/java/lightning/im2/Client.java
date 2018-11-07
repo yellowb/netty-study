@@ -105,6 +105,16 @@ public class Client {
             for (int i = 0; i < 500; i++) {
                 channel.writeAndFlush(messageRequestPacket);
             }
+
+            try {
+                Thread.sleep(2000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            channel.close();
+            System.err.println(new Date() + ": 断开连接");
+
         }).start();
     }
 
