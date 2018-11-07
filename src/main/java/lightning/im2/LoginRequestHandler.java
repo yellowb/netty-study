@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lightning.im.LoginRequestPacket;
 import lightning.im.LoginResponsePacket;
+import lightning.im.LoginUtil;
 
 import java.util.*;
 
@@ -23,11 +24,17 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         loginResponsePacket.setUsername(username);
         if (this.validUser(loginRequestPacket)) {
             // Login passed
+
+            LoginUtil.markAsLogin(ctx.channel());
+
             System.out.println(new Date() + ": 登录验证成功! - " + loginRequestPacket.getUsername());
             loginResponsePacket.setLoginResponse(LoginResponsePacket.LOGIN_PASSED);
         }
         else {
             // Login denied
+
+            LoginUtil.markAsLogout(ctx.channel());
+
             System.out.println(new Date() + ": 登录验证失败! - " + loginRequestPacket.getUsername());
             loginResponsePacket.setLoginResponse(LoginResponsePacket.LOGIN_DENIED);
             loginResponsePacket.setErrMsg("Username/PWD error");

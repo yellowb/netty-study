@@ -102,7 +102,7 @@ public class Client {
 
             MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
             messageRequestPacket.setMessage(line);
-            for (int i = 0; i < 500; i++) {
+            for (int i = 0; i < 1; i++) {
                 channel.writeAndFlush(messageRequestPacket);
             }
 
