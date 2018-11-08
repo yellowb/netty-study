@@ -14,13 +14,13 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (LoginUtil.hasLogin(ctx.channel())) {
             // 当前连接已登录, 卸载AuthHandler
-            ctx.pipeline().remove(this);
             System.out.println(new Date() + ": 登录验证成功后卸载AuthHandler!");
+            ctx.pipeline().remove(this);
             super.channelRead(ctx, msg);
         }
         else {
-            ctx.channel().close();
             System.out.println(new Date() + ": 登录验证失败后断开与客户端连接!");
+            ctx.channel().close();
         }
     }
 }
