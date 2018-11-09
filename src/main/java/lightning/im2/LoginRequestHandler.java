@@ -25,7 +25,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         if (this.validUser(loginRequestPacket)) {
             // Login passed
 
-            LoginUtil.markAsLogin(ctx.channel());
+            LoginUtil.login(new Session(loginRequestPacket.getUsername()), ctx.channel());
 
             System.out.println(new Date() + ": 登录验证成功! - " + loginRequestPacket.getUsername());
             loginResponsePacket.setLoginResponse(LoginResponsePacket.LOGIN_PASSED);
@@ -33,7 +33,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         else {
             // Login denied
 
-            LoginUtil.markAsLogout(ctx.channel());
+            LoginUtil.logout(ctx.channel());
 
             System.out.println(new Date() + ": 登录验证失败! - " + loginRequestPacket.getUsername());
             loginResponsePacket.setLoginResponse(LoginResponsePacket.LOGIN_DENIED);

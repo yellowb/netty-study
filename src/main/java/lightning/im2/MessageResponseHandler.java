@@ -9,6 +9,6 @@ import java.util.*;
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageResponsePacket messageResponsePacket) throws Exception {
-        System.out.println(new Date() + ": 服务器回应: " + messageResponsePacket.getMessage());
+        System.out.println(new Date() + ": [" + messageResponsePacket.getFromUsername() + "]" + messageResponsePacket.getMessage());
     }
 }

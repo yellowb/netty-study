@@ -4,6 +4,16 @@ public class MessageRequestPacket extends Packet {
 
     private String message;
 
+    private String toUsername;
+
+    public String getToUsername() {
+        return toUsername;
+    }
+
+    public void setToUsername(String toUsername) {
+        this.toUsername = toUsername;
+    }
+
     public String getMessage() {
         return message;
     }
