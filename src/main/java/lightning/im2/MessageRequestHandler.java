@@ -13,9 +13,9 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket messageRequestPacket) throws Exception {
 
         System.out.println(new Date() + ": 客户端发来消息: " + messageRequestPacket.getMessage());
-//        String resp = "ECHO: " + messageRequestPacket.getMessage();
-//        messageResponsePacket.setMessage(resp);
-//        ctx.channel().write(messageResponsePacket);
+        //        String resp = "ECHO: " + messageRequestPacket.getMessage();
+        //        messageResponsePacket.setMessage(resp);
+        //        ctx.channel().write(messageResponsePacket);
 
         String[] tokens = messageRequestPacket.getMessage().split(" ", 2);
         String toUsername = tokens[0];
@@ -26,8 +26,7 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
             toUserPacket.setMessage(message);
             toUserPacket.setFromUsername(LoginUtil.getCurrentUserSession(ctx.channel()).getUsername());
             LoginUtil.getLoginUserChannel(toUsername).writeAndFlush(toUserPacket);
-        }
-        else {
+        } else {
             MessageResponsePacket echoPacket = new MessageResponsePacket();
             echoPacket.setMessage("用户[" + toUsername + "] 未登录!");
             echoPacket.setFromUsername("SYSTEM INFO");
