@@ -13,8 +13,9 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     private static final Map<String, String> VALID_USERS = new HashMap<>();
 
     static {
-        VALID_USERS.put("yellow", "12345");
-        VALID_USERS.put("black", "54321");
+        VALID_USERS.put("yellow", "123");
+        VALID_USERS.put("black", "123");
+        VALID_USERS.put("red", "123");
     }
 
     @Override

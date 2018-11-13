@@ -15,9 +15,9 @@ public class GroupChatUtil {
      * @param members
      * @return
      */
-    public static boolean createGroup(String groupName, List<String> members) {
+    public static ChatGroup createGroup(String groupName, List<String> members) {
         if (CHAT_GROUPS.containsKey(groupName) || members.isEmpty()) {
-            return false;
+            return null;
         }
         ChatGroup chatGroup = new ChatGroup(groupName);
         for (String member : members) {
@@ -26,8 +26,11 @@ public class GroupChatUtil {
                 chatGroup.addMember(member, loginUserChannel);
             }
         }
+        if (chatGroup.getMembers().isEmpty()) {
+            return null;
+        }
         CHAT_GROUPS.put(groupName, chatGroup);
-        return true;
+        return chatGroup;
     }
 
     public static ChatGroup getGroup(String groupName) {

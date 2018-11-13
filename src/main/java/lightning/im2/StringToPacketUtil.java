@@ -1,8 +1,11 @@
 package lightning.im2;
 
+import lightning.im.CreateGroupRequestPacket;
 import lightning.im.LoginRequestPacket;
 import lightning.im.MessageRequestPacket;
 import lightning.im.Packet;
+
+import java.util.*;
 
 public class StringToPacketUtil {
 
@@ -15,6 +18,15 @@ public class StringToPacketUtil {
             loginRequestPacket.setUsername(tokens[0]);
             loginRequestPacket.setPassword(tokens[1]);
             return loginRequestPacket;
+        } else if ((input.startsWith("cg:") || input.startsWith("CG:"))) {  // cg = create group
+            String input2 = input.substring(3);
+            String[] tokens = input2.split(" ");
+            String groupName = tokens[0];
+            List<String> members = Arrays.asList(tokens[1].split("/"));
+            CreateGroupRequestPacket createGroupRequestPacket = new CreateGroupRequestPacket();
+            createGroupRequestPacket.setGroupName(groupName);
+            createGroupRequestPacket.setMembers(members);
+            return createGroupRequestPacket;
         } else {
             // chat
             MessageRequestPacket messageRequestPacket = new MessageRequestPacket();

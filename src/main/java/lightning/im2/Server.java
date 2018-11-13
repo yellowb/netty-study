@@ -30,6 +30,7 @@ public class Server {
                     ch.pipeline().addLast(new LoginRequestHandler());
                     ch.pipeline().addLast(new AuthHandler());
                     ch.pipeline().addLast(new MessageRequestHandler());
+                    ch.pipeline().addLast(new CreateGroupRequestHandler());
                     ch.pipeline().addLast(new ClientStatusDetectHandler());
                 }
             })
