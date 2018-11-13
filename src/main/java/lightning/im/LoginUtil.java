@@ -5,7 +5,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 import lightning.im2.Session;
-import org.w3c.dom.Attr;
 
 import java.util.*;
 
