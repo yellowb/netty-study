@@ -18,6 +18,10 @@ public class PacketCodeC {
         CLASS_MAP.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
         CLASS_MAP.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
         CLASS_MAP.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
+        CLASS_MAP.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        CLASS_MAP.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
+        CLASS_MAP.put(Command.GROUP_MESSAGE_REQUEST, GroupMessageRequestPacket.class);
+        CLASS_MAP.put(Command.GROUP_MESSAGE_RESPONSE, GroupMessageResponsePacket.class);
 
         SERIALIZER_MAP.put(SerializerAlgorithm.JSON, new JSONSerializer());
     }
