@@ -6,7 +6,7 @@ public class CreateGroupRequestPacket extends Packet {
 
     private String groupName;
 
-    private List<String> usernames;
+    private List<String> members;
 
     private String creator;
 
@@ -18,12 +18,12 @@ public class CreateGroupRequestPacket extends Packet {
         this.groupName = groupName;
     }
 
-    public List<String> getUsernames() {
-        return usernames;
+    public List<String> getMembers() {
+        return members;
     }
 
-    public void setUsernames(List<String> usernames) {
-        this.usernames = usernames;
+    public void setMembers(List<String> members) {
+        this.members = members;
     }
 
     public String getCreator() {
