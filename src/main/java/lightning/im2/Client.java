@@ -48,6 +48,7 @@ public class Client {
                     ch.pipeline().addLast(new LoginResponseHandler());
                     ch.pipeline().addLast(new MessageResponseHandler());
                     ch.pipeline().addLast(new CreateGroupResponseHandler());
+                    ch.pipeline().addLast(new GroupMessageResponseHandler());
                     ch.pipeline().addLast(new ClientStatusDetectHandler());
                 }
             });
