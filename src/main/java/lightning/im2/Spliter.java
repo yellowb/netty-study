@@ -22,7 +22,7 @@ public class Spliter extends LengthFieldBasedFrameDecoder {
         // protocol checking
         int magicNumber = in.getInt(in.readerIndex());
         if (magicNumber != PacketCodeC.MAGIC_NUMBER) {
-            System.out.println(new Date() + ": 客户端发来不明协议[" + magicNumber + "]");
+            System.out.println(new Date() + ": 客户端发来不明协议[" + magicNumber + "] ");
             ctx.channel().close().sync();
             return null;
         }
