@@ -24,10 +24,9 @@ public class Server {
             .channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<NioSocketChannel>() {
                 protected void initChannel(NioSocketChannel ch) {
-//                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                     ch.pipeline().addLast(new Spliter());
                     ch.pipeline().addLast(new PacketCodec());
-                    ch.pipeline().addLast(new LoginRequestHandler());
+                    ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                     ch.pipeline().addLast(new AuthHandler());
                     ch.pipeline().addLast(new MessageRequestHandler());
                     ch.pipeline().addLast(new CreateGroupRequestHandler());

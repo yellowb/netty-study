@@ -1,5 +1,6 @@
 package lightning.im2;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lightning.im.LoginRequestPacket;
@@ -8,7 +9,10 @@ import lightning.im.LoginUtil;
 
 import java.util.*;
 
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
 
     private static final Map<String, String> VALID_USERS = new HashMap<>();
 
