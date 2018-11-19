@@ -1,5 +1,6 @@
 package lightning.im2;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lightning.im.ChatGroup;
@@ -12,7 +13,11 @@ import java.util.*;
 
 import static lightning.im.GroupMessageResponsePacket.*;
 
+@ChannelHandler.Sharable
 public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
+
+    public static final GroupMessageRequestHandler INSTANCE = new GroupMessageRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket) throws Exception {
         String sender = LoginUtil.getCurrentUserSession(ctx.channel()).getUsername();

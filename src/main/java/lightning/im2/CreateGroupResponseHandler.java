@@ -1,5 +1,6 @@
 package lightning.im2;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lightning.im.CreateGroupResponsePacket;
@@ -8,7 +9,11 @@ import java.util.*;
 
 import static lightning.im.CreateGroupResponsePacket.*;
 
+@ChannelHandler.Sharable
 public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<CreateGroupResponsePacket> {
+
+    public static final CreateGroupResponseHandler INSTANCE = new CreateGroupResponseHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupResponsePacket responsePacket) throws Exception {
         if (responsePacket.getResponseCode() == CREATE_GROUP_SUCCEED) {

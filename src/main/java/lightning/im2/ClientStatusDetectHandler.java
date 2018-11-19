@@ -1,12 +1,16 @@
 package lightning.im2;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lightning.im.LoginUtil;
 
 import java.util.*;
 
+@ChannelHandler.Sharable
 public class ClientStatusDetectHandler extends ChannelInboundHandlerAdapter {
+
+    public static final ClientStatusDetectHandler INSTANCE = new ClientStatusDetectHandler();
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

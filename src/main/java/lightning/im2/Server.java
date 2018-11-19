@@ -27,11 +27,11 @@ public class Server {
                     ch.pipeline().addLast(new Spliter());
                     ch.pipeline().addLast(new PacketCodec());
                     ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
-                    ch.pipeline().addLast(new AuthHandler());
-                    ch.pipeline().addLast(new MessageRequestHandler());
-                    ch.pipeline().addLast(new CreateGroupRequestHandler());
-                    ch.pipeline().addLast(new GroupMessageRequestHandler());
-                    ch.pipeline().addLast(new ClientStatusDetectHandler());
+                    ch.pipeline().addLast(AuthHandler.INSTANCE);
+                    ch.pipeline().addLast(MessageRequestHandler.INSTANCE);
+                    ch.pipeline().addLast(CreateGroupRequestHandler.INSTANCE);
+                    ch.pipeline().addLast(GroupMessageRequestHandler.INSTANCE);
+                    ch.pipeline().addLast(ClientStatusDetectHandler.INSTANCE);
                 }
             })
             .childOption(ChannelOption.TCP_NODELAY, true)

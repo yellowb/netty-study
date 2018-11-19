@@ -45,11 +45,11 @@ public class Client {
 //                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                     ch.pipeline().addLast(new Spliter());
                     ch.pipeline().addLast(new PacketCodec());
-                    ch.pipeline().addLast(new LoginResponseHandler());
-                    ch.pipeline().addLast(new MessageResponseHandler());
-                    ch.pipeline().addLast(new CreateGroupResponseHandler());
-                    ch.pipeline().addLast(new GroupMessageResponseHandler());
-                    ch.pipeline().addLast(new ClientStatusDetectHandler());
+                    ch.pipeline().addLast(LoginResponseHandler.INSTANCE);
+                    ch.pipeline().addLast(MessageResponseHandler.INSTANCE);
+                    ch.pipeline().addLast(CreateGroupResponseHandler.INSTANCE);
+                    ch.pipeline().addLast(GroupMessageResponseHandler.INSTANCE);
+                    ch.pipeline().addLast(ClientStatusDetectHandler.INSTANCE);
                 }
             });
 
