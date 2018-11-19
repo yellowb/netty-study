@@ -25,7 +25,8 @@ public class Server {
             .childHandler(new ChannelInitializer<NioSocketChannel>() {
                 protected void initChannel(NioSocketChannel ch) {
                     ch.pipeline().addLast(new Spliter());
-                    ch.pipeline().addLast(new PacketCodec());
+//                    ch.pipeline().addLast(new PacketCodec());
+                    ch.pipeline().addLast(PacketCodec2.INSTANCE);
                     ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                     ch.pipeline().addLast(AuthHandler.INSTANCE);
                     ch.pipeline().addLast(MessageRequestHandler.INSTANCE);
