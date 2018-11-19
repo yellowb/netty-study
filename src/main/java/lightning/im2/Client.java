@@ -42,10 +42,10 @@ public class Client {
             .handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) {
-//                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                    ch.pipeline().addLast(new ClientIdleStateHandler());
                     ch.pipeline().addLast(new Spliter());
-//                    ch.pipeline().addLast(new PacketCodec());
                     ch.pipeline().addLast(PacketCodec2.INSTANCE);
+                    ch.pipeline().addLast(new HeartBeatTimerHandler());
                     ch.pipeline().addLast(LoginResponseHandler.INSTANCE);
                     ch.pipeline().addLast(MessageResponseHandler.INSTANCE);
                     ch.pipeline().addLast(CreateGroupResponseHandler.INSTANCE);

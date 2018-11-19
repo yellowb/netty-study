@@ -44,4 +44,14 @@ public interface Command {
      */
     byte GROUP_MESSAGE_RESPONSE = 8;
 
+    /**
+     * Heart beat from client -> server
+     */
+    byte HEART_BEAT_REQUEST = 9;
+
+    /**
+     * Heart beat from server -> client
+     */
+    byte HEART_BEAT_RESPONSE = 10;
+
 }

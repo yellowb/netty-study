@@ -22,6 +22,8 @@ public class PacketCodeC {
         CLASS_MAP.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
         CLASS_MAP.put(Command.GROUP_MESSAGE_REQUEST, GroupMessageRequestPacket.class);
         CLASS_MAP.put(Command.GROUP_MESSAGE_RESPONSE, GroupMessageResponsePacket.class);
+        CLASS_MAP.put(Command.HEART_BEAT_REQUEST, HeartBeatRequestPacket.class);
+        CLASS_MAP.put(Command.HEART_BEAT_RESPONSE, HeartBeatResponsePacket.class);
 
         SERIALIZER_MAP.put(SerializerAlgorithm.JSON, new JSONSerializer());
     }
