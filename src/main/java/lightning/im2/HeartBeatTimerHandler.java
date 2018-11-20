@@ -22,7 +22,7 @@ public class HeartBeatTimerHandler extends ChannelInboundHandlerAdapter {
             @Override
             public void run() {
                 if (ctx.channel().isActive()) {
-                    System.out.println(new Date() + ": 向服务器发送心跳包");
+//                    System.out.println(new Date() + ": 向服务器发送心跳包");
                     ctx.writeAndFlush(new HeartBeatRequestPacket());
                     sendHeartBeatInSchedule(ctx);
                 }
