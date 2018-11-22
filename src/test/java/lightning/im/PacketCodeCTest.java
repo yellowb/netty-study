@@ -11,8 +11,8 @@ public class PacketCodeCTest {
     public void should_fully_equals_after_encode_decode() {
         LoginRequestPacket loginReq = new LoginRequestPacket();
         loginReq.setUserId(10086);
-        loginReq.setUsername("Yellow");
-        loginReq.setPassword("12345");
+        loginReq.setUsername("yellow");
+        loginReq.setPassword("123");
 
         PacketCodeC codec = new PacketCodeC();
         ByteBuf byteBuf = codec.encode(loginReq);
